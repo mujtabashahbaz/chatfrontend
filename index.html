@@ -1,152 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smile Center Chatbot</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smile Center Dental Clinic</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f8fb;
+      color: #333;
+    }
 
-        .chat-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 400px;
-            max-height: 600px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
 
-        .chat-header {
-            background-color: #007bff;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2em;
-        }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
 
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            background-color: #f9f9f9;
-        }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-        }
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: url('https://images.unsplash.com/photo-1588774069263-64c6abf16347?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+      color: white;
+    }
 
-        .user {
-            background-color: #d1e7dd;
-            align-self: flex-end;
-        }
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
 
-        .bot {
-            background-color: #f8d7da;
-            align-self: flex-start;
-        }
+    .hero p {
+      font-size: 1.2em;
+    }
 
-        .chat-input {
-            display: flex;
-            border-top: 1px solid #ddd;
-        }
+    .services {
+      padding: 50px 20px;
+      text-align: center;
+    }
 
-        .chat-input input {
-            flex: 1;
-            border: none;
-            padding: 10px;
-            font-size: 1em;
-        }
+    .services h2 {
+      margin-bottom: 30px;
+    }
 
-        .chat-input button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
 
-        .chat-input input:focus {
-            outline: none;
-        }
+    .service-item {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .chat-input button:focus {
-            outline: none;
-        }
-    </style>
+    footer {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 30px;
+    }
+
+    /* Chatbot Styles */
+    .chat-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .user {
+      background-color: #d1e7dd;
+      align-self: flex-end;
+    }
+
+    .bot {
+      background-color: #f8d7da;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      font-size: 1em;
+    }
+
+    .chat-input button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+    }
+
+    .chat-input button:focus {
+      outline: none;
+    }
+  </style>
 </head>
 <body>
 
+<!-- Header and Navigation -->
+<header>
+  <h1>Smile Center Dental Clinic</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About Us</a>
+    <a href="#">Services</a>
+    <a href="#">Our Team</a>
+    <a href="#">Contact Us</a>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>Your Smile, Our Priority</h1>
+  <p>10 Years of Providing Trusted Dental Care in Islamabad</p>
+</section>
+
+<!-- Services Section -->
+<section class="services">
+  <h2>Our Services</h2>
+  <div class="service-list">
+    <div class="service-item">General & Cosmetic Dentistry</div>
+    <div class="service-item">Teeth Whitening</div>
+    <div class="service-item">Dental Implants</div>
+    <div class="service-item">Root Canal Treatment</div>
+    <div class="service-item">Orthodontics</div>
+    <div class="service-item">Routine Check-Ups</div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Smile Center Dental Clinic | All Rights Reserved</p>
+</footer>
+
+<!-- Chatbot Container -->
 <div class="chat-container">
-    <div class="chat-header">Smile Center Chatbot</div>
-    <div class="chat-messages" id="chat-messages"></div>
-    <div class="chat-input">
-        <input type="text" id="user-input" placeholder="Type your message..." />
-        <button onclick="sendMessage()">Send</button>
-    </div>
+  <div class="chat-header">Chat with Us!</div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input">
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
 </div>
 
+<!-- JavaScript for Chatbot -->
 <script>
-    const apiUrl = "https://smilecenterchat.onrender.com/chat";
-    const chatMessages = document.getElementById("chat-messages");
+  const apiUrl = "https://smilecenterchat.onrender.com/chat";
+  const chatMessages = document.getElementById("chat-messages");
 
-    // Function to add messages to the chat box
-    function addMessage(content, sender) {
-        const messageDiv = document.createElement("div");
-        messageDiv.classList.add("message", sender);
-        messageDiv.innerText = content;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+  // Add message to the chatbox
+  function addMessage(content, sender) {
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender);
+    messageDiv.innerText = content;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Send message to backend
+  async function sendMessage() {
+    const userInput = document.getElementById("user-input");
+    const message = userInput.value.trim();
+
+    if (!message) return;
+
+    addMessage(message, "user");
+    userInput.value = "";
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      });
+
+      const data = await response.json();
+      if (data.reply) {
+        addMessage(data.reply, "bot");
+      } else {
+        addMessage("Sorry, I couldn't understand that.", "bot");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      addMessage("There was an error connecting to the server.", "bot");
     }
+  }
 
-    // Function to send message to backend
-    async function sendMessage() {
-        const userInput = document.getElementById("user-input");
-        const message = userInput.value.trim();
-
-        if (!message) return;
-
-        addMessage(message, "user"); // Add user message to chat
-        userInput.value = "";
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ message: message }),
-            });
-
-            const data = await response.json();
-            if (data.reply) {
-                addMessage(data.reply, "bot"); // Add bot response
-            } else {
-                addMessage("Sorry, I couldn't understand that.", "bot");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            addMessage("There was an error connecting to the server.", "bot");
-        }
+  // Enable sending messages using Enter key
+  document.getElementById("user-input").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      sendMessage();
     }
-
-    // Allow sending message with Enter key
-    document.getElementById("user-input").addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-            sendMessage();
-        }
-    });
+  });
 </script>
 
 </body>
