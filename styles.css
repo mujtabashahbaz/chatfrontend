@@ -1,69 +1,49 @@
-/* General */
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f9fa;
-}
-
-/* Header */
-header {
-  background: #004aad;
-  color: white;
-  text-align: center;
-  padding: 1.5rem;
-}
-
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 60px;
-  background: url('images/dental-bg.jpg') no-repeat center/cover;
-  color: white;
-}
-
-/* Services */
-.service-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Contact Section */
-#contact {
-  text-align: center;
-  padding: 40px;
-}
-
-.branches {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.branch {
-  background: white;
-  padding: 15px;
+/* WhatsApp Chat Container */
+.whatsapp-chat-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.whatsapp-chat-container h3 {
+  background-color: #25d366;
+  color: white;
+  padding: 10px;
   text-align: center;
-  width: 280px;
+  font-size: 1rem;
+}
+
+.whatsapp-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .whatsapp-button {
-  display: inline-block;
-  background: #25d366;
-  color: white;
-  padding: 10px 15px;
-  margin-top: 10px;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f9f9f9;
+  padding: 10px;
   border-radius: 5px;
-  font-weight: bold;
-  transition: background 0.3s;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
 }
 
 .whatsapp-button:hover {
-  background: #1ebe57;
+  background-color: #e9ecef;
+}
+
+.whatsapp-button img {
+  width: 24px;
+  height: 24px;
 }
