@@ -204,7 +204,7 @@ footer p {
 /* WhatsApp Chat Container */
 .whatsapp-chat-container {
   position: fixed;
-  bottom: 20px;
+  bottom: 80px;
   left: 20px;
   width: 300px;
   background: white;
@@ -260,7 +260,7 @@ footer p {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 300px;
+  width: 400px; /* Increased width for better readability */
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -284,13 +284,14 @@ footer p {
   padding: 10px;
   overflow-y: auto;
   background: #f9f9f9;
-  max-height: 300px;
+  max-height: 350px; /* Adjusted height for larger width */
 }
 
 .message {
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
+  position: relative; /* Allows positioning of timestamp */
 }
 
 .user {
@@ -301,6 +302,20 @@ footer p {
 .bot {
   background: #f8d7da;
   align-self: flex-start;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #666;
+  position: absolute;
+  top: -15px; /* Move timestamp above the message */
+  left: 0;
+}
+
+.bot p {
+  margin: 0; /* Remove default margins for paragraphs */
+  line-height: 1.6; /* Ensure consistent spacing between lines */
+  text-indent: 20px; /* Add indentation for the first line of each paragraph */
 }
 
 .chat-input {
@@ -328,11 +343,43 @@ footer p {
   background: #005bb5;
 }
 
+.clear-chat-button {
+  background: #ff4d4d; /* Red color for clearing */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.clear-chat-button:hover {
+  background: #e60000; /* Darker red on hover */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
   .whatsapp-chat-container,
   .chat-container {
-    width: 90%;
+    width: 90%; /* Full width on smaller screens */
     bottom: 10px;
     left: 5%;
     right: 5%;
@@ -340,26 +387,9 @@ footer p {
 
   .whatsapp-buttons {
     max-height: 150px; /* Reduced height for smaller screens */
-    overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
   }
-  
+
   .chat-messages {
-    max-height: 200px; /* Reduced height for smaller screens */
-    overflow-y: auto; /* Enable vertical scrolling for chat history */
+    max-height: 250px; /* Reduced height for smaller screens */
   }
-  
-  /* Collapse/Expand Icons */
-  .collapse-icon {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .collapsed .collapse-icon {
-    transform: rotate(180deg); /* Rotate the icon when collapsed */
-  }
-  
-  /* Collapsed State */
-  .collapsed .whatsapp-buttons,
-  .collapsed .chat-messages {
-    display: none; /* Hide the content when collapsed */
-  }
+}

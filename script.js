@@ -24,10 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (isChatbotCollapsed) {
     chatContainer.classList.add('collapsed');
   }
+
+  // Load chat history for the chatbot
+  clearChatHistoryAfter24Hours();
+  setChatHistoryTime();
+  loadChatHistory();
 });
 
 // Chatbot functionality with timestamp and Markdown formatting
-const apiUrl = "https://smilecenterchat.onrender.com/chat";
+const apiUrl = "https://smilecenterchat.onrender.com/chat"; // Replace with your API endpoint
 const chatMessages = document.getElementById("chat-messages");
 
 // Add message to the chatbox with timestamp
@@ -40,7 +45,32 @@ function addMessage(content, sender) {
 
   // Add timestamp
   const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  messageDiv.innerHTML = `<span class="timestamp">${timestamp}</span> ${formattedContent}`;
+
+  // Create a span for the timestamp
+  const timestampSpan = document.createElement("span");
+  timestampSpan.classList.add("timestamp");
+  timestampSpan.textContent = timestamp;
+
+  // Add content with proper paragraphing for bot responses
+  const contentDiv = document.createElement("div");
+  if (sender === "bot") {
+    // Split content into paragraphs for better readability
+    const paragraphs = formattedContent.split("\n").filter(paragraph => paragraph.trim() !== "");
+    paragraphs.forEach(paragraph => {
+      const p = document.createElement("p");
+      p.innerHTML = paragraph;
+      contentDiv.appendChild(p);
+    });
+  } else {
+    // For user messages, keep it as-is
+    contentDiv.innerHTML = formattedContent;
+  }
+
+  // Append timestamp and content to the message div
+  messageDiv.appendChild(timestampSpan);
+  messageDiv.appendChild(contentDiv);
+
+  // Add the message to the chat window
   chatMessages.appendChild(messageDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -73,12 +103,17 @@ async function sendMessage() {
   userInput.value = "";
 
   try {
-    // Send message to API and get response
+    // Simulate sending message to API and get response
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: message }),
     });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
     const data = await response.json();
 
     // Display bot's reply
@@ -93,5 +128,63 @@ async function sendMessage() {
   }
 }
 
+// Enable sending messages using Enter key
+document.getElementById("user-input").addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
+
 // Save chat history to localStorage
-function saveChatHistory
+function saveChatHistory() {
+  const messages = Array.from(chatMessages.children).map(message => ({
+    content: message.innerHTML,
+    sender: message.classList.contains("user") ? "user" : "bot",
+  }));
+  localStorage.setItem("chat-history", JSON.stringify(messages));
+}
+
+// Load chat history from localStorage
+function loadChatHistory() {
+  const savedHistory = localStorage.getItem("chat-history");
+  if (savedHistory) {
+    const messages = JSON.parse(savedHistory);
+    messages.forEach(({ content, sender }) => {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", sender);
+      messageDiv.innerHTML = content;
+      chatMessages.appendChild(messageDiv);
+    });
+  }
+}
+
+// Clear chat history after 24 hours
+function clearChatHistoryAfter24Hours() {
+  const lastSavedTime = localStorage.getItem("chat-history-time");
+  const currentTime = Date.now();
+
+  if (!lastSavedTime || currentTime - parseInt(lastSavedTime) > 24 * 60 * 60 * 1000) {
+    localStorage.removeItem("chat-history");
+    localStorage.removeItem("chat-history-time");
+    chatMessages.innerHTML = ""; // Clear the chat messages
+  }
+}
+
+// Set the current time when saving chat history
+function setChatHistoryTime() {
+  localStorage.setItem("chat-history-time", Date.now());
+}
+
+// Clear chat history
+function clearChat() {
+  const chatMessages = document.getElementById("chat-messages");
+
+  // Clear messages from the UI
+  chatMessages.innerHTML = "";
+
+  // Remove chat history from localStorage
+  localStorage.removeItem("chat-history");
+  localStorage.removeItem("chat-history-time");
+
+  console.log("Chat history cleared.");
+}
