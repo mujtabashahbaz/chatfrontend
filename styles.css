@@ -304,11 +304,12 @@ footer p {
   align-self: flex-start;
 }
 
+/* Timestamp Styling */
 .timestamp {
   font-size: 0.8rem;
   color: #666;
   position: absolute;
-  top: -15px; /* Move timestamp above the message */
+  top: -25px; /* Increased from -15px to -25px for more space */
   left: 0;
 }
 
