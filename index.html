@@ -139,9 +139,11 @@
   </footer>
 
   <!-- WhatsApp Chat Buttons -->
-  <div class="whatsapp-chat-container">
-    <h3>Chat with Us via WhatsApp</h3>
-    <div class="whatsapp-buttons">
+  <div class="whatsapp-chat-container" id="whatsapp-container">
+    <div class="whatsapp-header" onclick="toggleCollapse('whatsapp-container')">
+      Chat with Us via WhatsApp <span class="collapse-icon">▼</span>
+    </div>
+    <div class="whatsapp-buttons" id="whatsapp-buttons">
       <a href="https://wa.me/923215212690" target="_blank" class="whatsapp-button">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" alt="WhatsApp Icon">
         F-8 Branch (Headquarter)
@@ -166,8 +168,10 @@
   </div>
 
   <!-- Chatbot Container -->
-  <div class="chat-container">
-    <div class="chat-header">Chat with Us!</div>
+  <div class="chat-container" id="chat-container">
+    <div class="chat-header" onclick="toggleCollapse('chat-container')">
+      Chat with Us! <span class="collapse-icon">▼</span>
+    </div>
     <div class="chat-messages" id="chat-messages"></div>
     <div class="chat-input">
       <input type="text" id="user-input" placeholder="Type your message..." />

@@ -1,6 +1,6 @@
-// Smooth scrolling for navigation links
+// Smooth Scrolling for Navigation Links
 document.querySelectorAll('nav a').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
+  anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const targetId = this.getAttribute('href').substring(1);
     document.getElementById(targetId).scrollIntoView({
@@ -8,6 +8,20 @@ document.querySelectorAll('nav a').forEach(anchor => {
     });
   });
 });
+
+// WhatsApp Chat Integration
+function toggleWhatsAppChat() {
+  const whatsappContainer = document.getElementById('whatsapp-container');
+  whatsappContainer.classList.toggle('collapsed');
+
+  // Toggle visibility of WhatsApp buttons
+  const whatsappButtons = document.getElementById('whatsapp-buttons');
+  if (whatsappContainer.classList.contains('collapsed')) {
+    whatsappButtons.style.display = 'none';
+  } else {
+    whatsappButtons.style.display = 'block';
+  }
+}
 
 // Chatbot Functionality
 const apiUrl = "https://smilecenterchat.onrender.com/chat";
@@ -54,8 +68,36 @@ async function sendMessage() {
 }
 
 // Enable sending messages using Enter key
-document.getElementById("user-input").addEventListener("keypress", function(e) {
+document.getElementById("user-input").addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     sendMessage();
   }
+});
+
+// Toggle Chatbot Collapse/Expand
+function toggleChatbot() {
+  const chatContainer = document.getElementById('chat-container');
+  chatContainer.classList.toggle('collapsed');
+
+  // Toggle visibility of chat messages
+  const chatMessages = document.getElementById('chat-messages');
+  if (chatContainer.classList.contains('collapsed')) {
+    chatMessages.style.display = 'none';
+  } else {
+    chatMessages.style.display = 'block';
+  }
+}
+
+// Initialize Containers as Collapsed by Default
+document.addEventListener('DOMContentLoaded', () => {
+  const whatsappContainer = document.getElementById('whatsapp-container');
+  const chatContainer = document.getElementById('chat-container');
+
+  // Set initial states
+  whatsappContainer.classList.add('collapsed');
+  chatContainer.classList.add('collapsed');
+
+  // Hide content initially
+  document.getElementById('whatsapp-buttons').style.display = 'none';
+  document.getElementById('chat-messages').style.display = 'none';
 });
