@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Chatbot Functionality with Timestamp and Markdown Formatting
-const apiUrl = "https://smilecenterchat.onrender.com/chat"; // Replace with your API endpoint
+const apiUrl = "https://smilecenterchat.onrender.com/chat"; // Replace with your actual API endpoint
 const chatMessages = document.getElementById("chat-messages");
 
 // Add Message to the Chatbox with Timestamp
