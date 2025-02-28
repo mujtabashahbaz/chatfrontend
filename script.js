@@ -1,39 +1,65 @@
-// Smooth Scrolling for Navigation Links
-document.querySelectorAll('nav a').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href').substring(1);
-    document.getElementById(targetId).scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});
+// Toggle collapse/expand for chat components
+function toggleChat(chatType) {
+  const container = document.getElementById(chatType === 'whatsapp' ? 'whatsapp-container' : 'chat-container');
+  container.classList.toggle('collapsed');
 
-// WhatsApp Chat Integration
-function toggleWhatsAppChat() {
-  const whatsappContainer = document.getElementById('whatsapp-container');
-  whatsappContainer.classList.toggle('collapsed');
-
-  // Toggle visibility of WhatsApp buttons
-  const whatsappButtons = document.getElementById('whatsapp-buttons');
-  if (whatsappContainer.classList.contains('collapsed')) {
-    whatsappButtons.style.display = 'none';
-  } else {
-    whatsappButtons.style.display = 'block';
-  }
+  // Save the collapsed state in localStorage
+  const isCollapsed = container.classList.contains('collapsed');
+  localStorage.setItem(`${chatType}-collapsed`, isCollapsed);
 }
 
-// Chatbot Functionality
+// Load collapsed state on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const whatsappContainer = document.getElementById('whatsapp-container');
+  const chatContainer = document.getElementById('chat-container');
+
+  // Restore WhatsApp chat collapsed state
+  const isWhatsAppCollapsed = localStorage.getItem('whatsapp-collapsed') === 'true';
+  if (isWhatsAppCollapsed) {
+    whatsappContainer.classList.add('collapsed');
+  }
+
+  // Restore chatbot collapsed state
+  const isChatbotCollapsed = localStorage.getItem('chatbot-collapsed') === 'true';
+  if (isChatbotCollapsed) {
+    chatContainer.classList.add('collapsed');
+  }
+});
+
+// Chatbot functionality with timestamp and Markdown formatting
 const apiUrl = "https://smilecenterchat.onrender.com/chat";
 const chatMessages = document.getElementById("chat-messages");
 
-// Add message to the chatbox
+// Add message to the chatbox with timestamp
 function addMessage(content, sender) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message", sender);
-  messageDiv.innerText = content;
+
+  // Format message with Markdown (bold, italic, links)
+  const formattedContent = formatMarkdown(content);
+
+  // Add timestamp
+  const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  messageDiv.innerHTML = `<span class="timestamp">${timestamp}</span> ${formattedContent}`;
   chatMessages.appendChild(messageDiv);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Save chat history to localStorage
+  saveChatHistory();
+}
+
+// Format Markdown (basic support for bold, italic, and links)
+function formatMarkdown(text) {
+  // Bold text: **text**
+  text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Italic text: *text*
+  text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // Links: [text](url)
+  text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+  return text;
 }
 
 // Send message to backend
@@ -51,7 +77,7 @@ async function sendMessage() {
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: message })
+      body: JSON.stringify({ message: message }),
     });
     const data = await response.json();
 
@@ -67,37 +93,5 @@ async function sendMessage() {
   }
 }
 
-// Enable sending messages using Enter key
-document.getElementById("user-input").addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    sendMessage();
-  }
-});
-
-// Toggle Chatbot Collapse/Expand
-function toggleChatbot() {
-  const chatContainer = document.getElementById('chat-container');
-  chatContainer.classList.toggle('collapsed');
-
-  // Toggle visibility of chat messages
-  const chatMessages = document.getElementById('chat-messages');
-  if (chatContainer.classList.contains('collapsed')) {
-    chatMessages.style.display = 'none';
-  } else {
-    chatMessages.style.display = 'block';
-  }
-}
-
-// Initialize Containers as Collapsed by Default
-document.addEventListener('DOMContentLoaded', () => {
-  const whatsappContainer = document.getElementById('whatsapp-container');
-  const chatContainer = document.getElementById('chat-container');
-
-  // Set initial states
-  whatsappContainer.classList.add('collapsed');
-  chatContainer.classList.add('collapsed');
-
-  // Hide content initially
-  document.getElementById('whatsapp-buttons').style.display = 'none';
-  document.getElementById('chat-messages').style.display = 'none';
-});
+// Save chat history to localStorage
+function saveChatHistory

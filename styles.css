@@ -219,16 +219,10 @@ footer p {
   background: #25d366;
   color: white;
   padding: 10px;
-  text-align: center;
-  font-size: 1rem;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.collapse-icon {
-  font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .whatsapp-buttons {
@@ -279,12 +273,10 @@ footer p {
   background: #0d2f26;
   color: white;
   padding: 10px;
-  text-align: center;
-  font-size: 1rem;
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 
 .chat-messages {
@@ -321,6 +313,7 @@ footer p {
   border: none;
   padding: 10px;
   font-size: 1em;
+  outline: none;
 }
 
 .chat-input button {
@@ -331,71 +324,42 @@ footer p {
   cursor: pointer;
 }
 
-.chat-input input:focus {
-  outline: none;
-}
-
-.chat-input button:focus {
-  outline: none;
+.chat-input button:hover {
+  background: #005bb5;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .whatsapp-chat-container {
-    left: 50%;
-    transform: translateX(-50%);
+  .whatsapp-chat-container,
+  .chat-container {
+    width: 90%;
     bottom: 10px;
+    left: 5%;
+    right: 5%;
   }
 
   .whatsapp-buttons {
-    display: none; /* Collapsed by default on small screens */
-  }
-
-  .chat-container {
-    right: 50%;
-    transform: translateX(50%);
-    bottom: 10px;
+    max-height: 150px; /* Reduced height for smaller screens */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
   }
   
   .chat-messages {
-    display: none; /* Collapsed by default on small screens */
+    max-height: 200px; /* Reduced height for smaller screens */
+    overflow-y: auto; /* Enable vertical scrolling for chat history */
   }
   
-  /* Show WhatsApp buttons and chat messages when expanded */
-  .whatsapp-chat-container.expanded .whatsapp-buttons,
-  .chat-container.expanded .chat-messages {
-    display: block;
-  }
-  
-  /* Collapse icons for headers */
+  /* Collapse/Expand Icons */
   .collapse-icon {
+    font-size: 1rem;
     transition: transform 0.3s ease;
   }
   
-  .whatsapp-chat-container.collapsed .collapse-icon,
-  .chat-container.collapsed .collapse-icon {
+  .collapsed .collapse-icon {
     transform: rotate(180deg); /* Rotate the icon when collapsed */
   }
   
-  /* Ensure proper alignment for smaller screens */
-  @media (max-width: 768px) {
-    .whatsapp-chat-container {
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 10px;
-    }
-  
-    .whatsapp-buttons {
-      display: none; /* Collapsed by default on small screens */
-    }
-  
-    .chat-container {
-      right: 50%;
-      transform: translateX(50%);
-      bottom: 10px;
-    }
-  
-    .chat-messages {
-      display: none; /* Collapsed by default on small screens */
-    }
+  /* Collapsed State */
+  .collapsed .whatsapp-buttons,
+  .collapsed .chat-messages {
+    display: none; /* Hide the content when collapsed */
   }
