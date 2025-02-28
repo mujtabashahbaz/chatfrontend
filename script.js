@@ -1,4 +1,4 @@
-// Toggle collapse/expand for chat components
+// Toggle Collapse/Expand for Chat Components
 function toggleChat(chatType) {
   const container = document.getElementById(chatType === 'whatsapp' ? 'whatsapp-container' : 'chat-container');
   container.classList.toggle('collapsed');
@@ -8,7 +8,7 @@ function toggleChat(chatType) {
   localStorage.setItem(`${chatType}-collapsed`, isCollapsed);
 }
 
-// Load collapsed state on page load
+// Load Collapsed State on Page Load
 document.addEventListener('DOMContentLoaded', () => {
   const whatsappContainer = document.getElementById('whatsapp-container');
   const chatContainer = document.getElementById('chat-container');
@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
   loadChatHistory();
 });
 
-// Chatbot functionality with timestamp and Markdown formatting
+// Chatbot Functionality with Timestamp and Markdown Formatting
 const apiUrl = "https://smilecenterchat.onrender.com/chat"; // Replace with your API endpoint
 const chatMessages = document.getElementById("chat-messages");
 
-// Add message to the chatbox with timestamp
+// Add Message to the Chatbox with Timestamp
 function addMessage(content, sender) {
   const messageDiv = document.createElement("div");
   messageDiv.classList.add("message", sender);
@@ -92,7 +92,7 @@ function formatMarkdown(text) {
   return text;
 }
 
-// Send message to backend
+// Send Message to Backend
 async function sendMessage() {
   const userInput = document.getElementById("user-input");
   const message = userInput.value.trim();
@@ -128,14 +128,14 @@ async function sendMessage() {
   }
 }
 
-// Enable sending messages using Enter key
+// Enable Sending Messages Using Enter Key
 document.getElementById("user-input").addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     sendMessage();
   }
 });
 
-// Save chat history to localStorage
+// Save Chat History to localStorage
 function saveChatHistory() {
   const messages = Array.from(chatMessages.children).map(message => ({
     content: message.innerHTML,
@@ -144,7 +144,7 @@ function saveChatHistory() {
   localStorage.setItem("chat-history", JSON.stringify(messages));
 }
 
-// Load chat history from localStorage
+// Load Chat History from localStorage
 function loadChatHistory() {
   const savedHistory = localStorage.getItem("chat-history");
   if (savedHistory) {
@@ -158,7 +158,7 @@ function loadChatHistory() {
   }
 }
 
-// Clear chat history after 24 hours
+// Clear Chat History After 24 Hours
 function clearChatHistoryAfter24Hours() {
   const lastSavedTime = localStorage.getItem("chat-history-time");
   const currentTime = Date.now();
@@ -170,12 +170,12 @@ function clearChatHistoryAfter24Hours() {
   }
 }
 
-// Set the current time when saving chat history
+// Set the Current Time When Saving Chat History
 function setChatHistoryTime() {
   localStorage.setItem("chat-history-time", Date.now());
 }
 
-// Clear chat history
+// Clear Chat History
 function clearChat() {
   const chatMessages = document.getElementById("chat-messages");
 
